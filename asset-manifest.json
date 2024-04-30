@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/TodoList_withTypeScript.github.io/static/css/main.e49ae833.css",
+    "main.js": "/TodoList_withTypeScript.github.io/static/js/main.7bf59ef7.js",
+    "index.html": "/TodoList_withTypeScript.github.io/index.html",
+    "main.e49ae833.css.map": "/TodoList_withTypeScript.github.io/static/css/main.e49ae833.css.map",
+    "main.7bf59ef7.js.map": "/TodoList_withTypeScript.github.io/static/js/main.7bf59ef7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e49ae833.css",
+    "static/js/main.7bf59ef7.js"
+  ]
+}

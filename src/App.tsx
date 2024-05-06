@@ -17,15 +17,15 @@ function App() {
     setInputValue(e.target.value);
   };
 
-  const handleSubmit = (e: string) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!inputValue) return;
     const newTodo: Todo = {
       inputValue: inputValue,
       id: todos.length,
       checked: false,
     };
-
-    setTodos([newTodo, ...todos]);
+    setTodos([...todos, newTodo]);
     setInputValue("");
   };
 
@@ -59,8 +59,8 @@ function App() {
       <h2 className="text-4xl font-bold flex justify-center mt-12">
         Todoリスト with TypeScript ver 1.0
       </h2>
-      <div
-        // onSubmit={(e) => handleSubmit(e)}
+      <form
+        onSubmit={(e) => handleSubmit(e)}
         className="flex justify-center mt-5 mb-12"
       >
         <input
@@ -70,13 +70,12 @@ function App() {
           onChange={(e) => handleChange(e)}
           placeholder="タスクを追加"
         />
-        <button
-          onClick={() => handleSubmit("")}
+        <input
+          type="submit"
+          value={"作成"}
           className="ml-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          作成
-        </button>
-      </div>
+        />
+      </form>
       <ul className="mt-5 space-y-4">
         {todos.map((todo) => (
           <li key={todo.id} className="flex justify-center space-x-4">
@@ -101,8 +100,6 @@ function App() {
           </li>
         ))}
       </ul>
-
-      <button>Test Button</button>
     </>
   );
 }

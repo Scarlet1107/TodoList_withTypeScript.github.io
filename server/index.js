@@ -1,16 +1,16 @@
 const express = require('express');
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
-const App = require('../src/App').default; // Reactのメインコンポーネントのパスを指定
-
+const path = require('path');
 const app = express();
 
-app.get('/', (req, res) => {
-  const app = ReactDOMServer.renderToString(<App />);
-  res.send(`<html><body>${app}</body></html>`);
+// 静的ファイルの提供
+app.use(express.static(path.join(__dirname, '../build')));
+
+// すべてのルートリクエストを index.html に送る
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-const PORT = process.env.PORT || 9000;
-app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
+// 9000ポートでサーバを起動
+app.listen(9000, () => {
+  console.log('Server is running on http://localhost:9000');
 });

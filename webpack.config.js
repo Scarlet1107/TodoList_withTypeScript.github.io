@@ -1,13 +1,13 @@
-const path = require('path');
-const nodeExternals = require('webpack-node-externals');
+const path = require("path");
+const nodeExternals = require("webpack-node-externals");
 
 module.exports = {
-  target: 'node',
-  mode: 'development',
-  entry: './server/index.js',
+  target: "node",
+  mode: "development",
+  entry: "./server/index.js",
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'server.bundle.js'
+    path: path.resolve(__dirname, "dist"),
+    filename: "server.bundle.js",
   },
   externals: [nodeExternals()],
   module: {
@@ -16,15 +16,19 @@ module.exports = {
         test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript']
-          }
-        }
-      }
-    ]
+            presets: [
+              "@babel/preset-env",
+              "@babel/preset-react",
+              "@babel/preset-typescript",
+            ],
+          },
+        },
+      },
+    ],
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx']
-  }
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
+  },
 };

@@ -1,4 +1,4 @@
-import './App.css';
+import React from 'react';
 import { ChangeEvent, useState } from 'react';
 
 function App() {

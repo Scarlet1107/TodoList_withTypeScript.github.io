@@ -1,18 +1,36 @@
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import App from '../src/App';
+import express from 'express';
+import path from 'path';
+
 /**
  Start with
   webpack --config .\webpack.config.js
-  node server/index.js
+  node dist/server.js
  */
-// Expressモジュールをインポート  
-const express = require("express");
 const app = express();
 
-// ルートURLにアクセスされたときに実行される処理
+app.use('/dist', express.static(path.join(__dirname, '../dist/public')));
+
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  const appHtml = ReactDOMServer.renderToString(<App />);
+
+  const html = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>TodoList with TypeScript</title>
+        <script src="/dist/bundle.js" defer></script>
+      </head>
+      <body>
+        <div id="app">${appHtml}</div>
+      </body>
+    </html>`;
+
+  res.send(html);
 });
 
-// 9000ポートでサーバを起動
 app.listen(9000, () => {
   console.log("Application is running on http://localhost:9000");
 });

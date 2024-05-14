@@ -1,54 +1,53 @@
-const path = require("path");
-const nodeExternals = require("webpack-node-externals");
+const path = require('path');
+const nodeExternals = require('webpack-node-externals');
 
-module.exports = {
-  target: "node", // Node.js 環境向けにビルド
-  mode: "development", // または 'production'
-  entry: "./server/index.js", // エントリーポイントの設定
+const serverConfig = {
+  target: 'node',
+  mode: 'development',
+  entry: './server/index.js',
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "server.js",
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'server.js',
   },
-
-  externals: [nodeExternals()], // Node.js のネイティブモジュールをバンドルから除外
+  externals: [nodeExternals()],
   module: {
     rules: [
       {
         test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: [
-              "@babel/preset-env",
-              "@babel/preset-react",
-              "@babel/preset-typescript",
-            ],
-          },
-        },
-      },
-      // CSSファイルの処理を追加
-      {
-        test: /\.css$/,
-        use: [
-          "style-loader", // CSSをDOMに挿入するためのローダー
-          "css-loader", // CSSをCommonJSに変換するローダー
-          {
-            loader: "postcss-loader", // PostCSSを使用するためのローダー
-            options: {
-              postcssOptions: {
-                plugins: [
-                  require("tailwindcss"), // Tailwind CSSを適用
-                  require("autoprefixer"), // ベンダープレフィックスを自動的に追加
-                ],
-              },
-            },
-          },
-        ],
+        use: 'babel-loader',
       },
     ],
   },
   resolve: {
-    extensions: [".js", ".jsx", ".ts", ".tsx"], // 解決するファイルの拡張子
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
 };
+
+const clientConfig = {
+  target: 'web',
+  mode: 'development',
+  entry: './src/index.tsx',
+  output: {
+    path: path.resolve(__dirname, 'dist/public'),
+    filename: 'bundle.js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx|ts|tsx)$/,
+        exclude: /node_modules/,
+        use: 'babel-loader',
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+  },
+};
+
+module.exports = [serverConfig, clientConfig];

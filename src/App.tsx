@@ -4,7 +4,7 @@ import { ChangeEvent, useState } from "react";
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>(""); 
 
   type Todo = {
     id: number;
